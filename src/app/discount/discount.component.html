@@ -1,9 +1,10 @@
+<p><a [routerLink]="['/login']">Logout</a></p>
 <div class="container-fluid">
     <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
         
         <!-- <div class="table-responsive"> -->
         <h1>Search Member Discount</h1>
-        <div class="padding"></div>
+        
         <form #searchForm="ngForm" (ngSubmit)="searchDiscount(searchForm.value)" novalidate>
             <table class="table table-bordered">
                 <tr>
