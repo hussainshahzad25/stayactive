@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+      <div class="padding"></div>
+      <!-- <div class="table-responsive"> -->
+      <h2>Register your Account</h2>
+      <div class="padding"></div>
+      <form #userForm="ngForm" (ngSubmit)="register(userForm.value)" novalidate>
+          <table class="table table-bordered">
+              <tr>
+                  <th>First Name</th>
+                  <td>
+                      <input type="text" required autofocus class="form-control" id="firstName" name="firstName" ngModel>
+                  </td>
+                  <th>Last Name</th>
+                  <td>
+                      <input type="lastName" class="form-control" id="lastName" name="lastName" ngModel>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Username</th>
+                  <td>
+                      <input type="text" class="form-control" id="email" name="username" ngModel>
+                  </td>
+                  <th>Password</th>
+                  <td>
+                      <input type="password" class="form-control" id="pwd" name="password" ngModel>
+                  </td>
+              </tr>
+              <tr>
+                  <th>Role</th>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        This dropdown's menu is right-aligned
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">Action</button>
+                        <button class="dropdown-item" type="button">Another action</button>
+                        <button class="dropdown-item" type="button">Something else here</button>
+                      </div>
+                    </div>
+                  </td>           
+              </tr>              
+          </table>
+          <div align="center">
+              <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+          </div>
+      </form>
+      <div class="padding"></div>
+      <a [routerLink]="['/login']">Click to Login</a>
+      <!-- </div> -->
+  </main>
+</div>

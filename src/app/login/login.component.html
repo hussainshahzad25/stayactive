@@ -1,0 +1,32 @@
+<!-- container-fluid Start -->
+<div class="container-fluid">
+  <form class="form-signin" #userForm="ngForm" (ngSubmit)="login(userForm.value)">
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="text" #emailRef="ngModel" required name="username" ngModel placeholder="Email" class="form-control">
+      <div *ngIf="emailRef.errors && (emailRef.dirty || emailRef.touched)" class="alert alert-danger">
+          <div [hidden]="!emailRef.errors.required">
+              Plase Enter Your Username
+          </div>
+      </div>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" #passwordRef="ngModel" required minlength="5" name="password" ngModel id="inputPassword" placeholder="Password" class="form-control">
+      <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)" class="alert alert-danger">
+          <div [hidden]="!passwordRef.errors.required">
+              Plase Enter Your Password
+          </div>
+          <div [hidden]="!passwordRef.errors.minlength">
+              Not a Valid Password
+          </div>
+      </div>
+      <!-- <button  [routerLink]="['/dashboard']" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button> -->
+      <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+
+  </form>
+  <div class="">
+      <a [routerLink]="['/register']">Click to Register</a>
+      <a [routerLink]="['/forget']">Forget Password</a>
+  </div>
+  
+</div>
+<!-- container-fluid End -->

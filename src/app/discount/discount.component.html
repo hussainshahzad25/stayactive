@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+        
+        <!-- <div class="table-responsive"> -->
+        <h1>Search Member Discount</h1>
+        <div class="padding"></div>
+        <form #searchForm="ngForm" (ngSubmit)="searchDiscount(searchForm.value)" novalidate>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Policy Number</th>
+                    <td>
+                        <input type="text" required autofocus class="form-control" id="policyNumber" name="policyNumber" ngModel>
+                    </td>
+                    <th>Member Id</th>
+                    <td>
+                        <input type="text" class="form-control" id="memberId" name="memberId" ngModel>
+                    </td>
+                </tr>       
+            </table>
+            <div align="center">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Search Discount</button>
+            </div>
+        </form>
+        
+        <!-- </div> -->
+    </main>
+  </div>
