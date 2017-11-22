@@ -1,5 +1,15 @@
+.search-member{
+    font-family: sans-serif;
+    color:burlywood;
+}
+.logout{
+    padding: 10px;
+    margin: 10px;
+}
 .col-sm-9 {
-    padding-top: 20px;
-
+    padding: (20px,20px);
     width: 100%;
+}
+.datas{
+    font-size: 12px;
 }

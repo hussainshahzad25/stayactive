@@ -1,28 +1,104 @@
-<p><a [routerLink]="['/login']">Logout</a></p>
-<div class="container-fluid">
-    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-        
-        <!-- <div class="table-responsive"> -->
-        <h1>Search Member Discount</h1>
-        
-        <form #searchForm="ngForm" (ngSubmit)="searchDiscount(searchForm.value)" novalidate>
-            <table class="table table-bordered">
+<div align="right" class="logout">
+    <a [routerLink]="['/login']">Logout</a>
+</div>
+<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+    <h1 class="search-member">Search Member Discount</h1>
+
+    <form name="form" (ngSubmit)="f.form.valid && searchDiscount()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !policyNumber.valid }">
+            <label for="policyNumber">Policy Number</label>
+            <input type="text" class="form-control" name="policyNumber" [(ngModel)]="model.policyNumber" #policyNumber="ngModel" required
+            />
+            <div *ngIf="f.submitted && !policyNumber.valid" class="help-block">policyNumber is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !memberId.valid }">
+            <label for="memberId">Member Id</label>
+            <input type="text" class="form-control" name="memberId" [(ngModel)]="model.memberId" #memberId="ngModel" required />
+            <div *ngIf="f.submitted && !memberId.valid" class="help-block">memberId is required</div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Search Discount</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+        </div>
+    </form>
+</main>
+<main role="main" class="col-sm-9 ml-sm-auto col-md-9 pt-3">
+    <div class="padding"></div>
+    <div class="table-responsive">
+        <div class="padding"></div>
+        <table class="table table-bordered">
+            <thead>
+                <tr *ngIf="object" class="datas">
+                    <th>Member Id : {{object.memberId}}</th>
+                    <th>Policy Number : {{object.policyNumber}}</th>
+                    <th>RSD : {{object.riskStartDate}}</th>
+                    <th>Last Cal On : {{object.lastCalculationOn}}</th>
+                    <th>Updated On : {{object.lastCalculationOn}}</th>
+                    <th>Total Discount: {{object.totalDiscount}}</th>
+                </tr>
+            </thead>
+        </table>
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr *ngIf="object" class="datas">
+                    <th>Quarter No </th>
+                    <th>Avg Steps </th>
+                    <th>Step Dis </th>
+                    <th>Admin Dis </th>
+                    <th>Total Dis </th>
+                    <th>Updated By </th>
+                    <th>Updated On </th>
+                    <th>Reason </th>
+                </tr>                
+            </thead>
+
+            <tbody *ngFor="let quarter of quarters">
                 <tr>
-                    <th>Policy Number</th>
+                    <td>{{quarter.quarterNumber}}</td>
+                    <td>{{quarter.averageSteps}}</td>
+                    <td>{{quarter.stepsDiscount}}</td>
+
+                    <div *ngIf="adminQuarters">
+                        <td *ngFor="let adminquarter of adminQuarters">
+                            <div *ngIf="displayCondition(adminquarter.quarterNumber, quarter.quarterNumber)">
+                                {{adminquarter.adminDiscount}}
+                            </div>
+                        </td>
+                    </div>
                     <td>
-                        <input type="text" required autofocus class="form-control" id="policyNumber" name="policyNumber" ngModel>
-                    </td>
-                    <th>Member Id</th>
+                        {{quarter.totalDiscount}}</td>
                     <td>
-                        <input type="text" class="form-control" id="memberId" name="memberId" ngModel>
+                        <div *ngIf="adminQuarters">
+                            <td *ngFor="let adminquarter of adminQuarters">
+                                <div *ngIf="displayCondition(adminquarter.quarterNumber, quarter.quarterNumber)">
+                                    {{adminquarter.updatedBy}}
+                                </div>
+                            </td>
+                        </div>
                     </td>
-                </tr>       
-            </table>
-            <div align="center">
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Search Discount</button>
-            </div>
-        </form>
-        
-        <!-- </div> -->
-    </main>
-  </div>
+                    <td>
+                        <div *ngIf="adminQuarters">
+                            <td *ngFor="let adminquarter of adminQuarters">
+                                <div *ngIf="displayCondition(adminquarter.quarterNumber, quarter.quarterNumber)">
+                                    {{adminquarter.updatedDate}}
+                                </div>
+                            </td>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="adminQuarters">
+                            <td *ngFor="let adminquarter of adminQuarters">
+                                <div *ngIf="displayCondition(adminquarter.quarterNumber, quarter.quarterNumber)">
+                                    {{adminquarter.reason}}
+                                </div>
+                            </td>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>

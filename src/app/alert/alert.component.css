@@ -1,0 +1,18 @@
+/* .alert-danger {
+    color: red;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    width: 345px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+} */
+#danger{
+    color: red;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    width: 345px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}

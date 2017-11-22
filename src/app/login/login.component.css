@@ -12,12 +12,9 @@
     border-radius: 2em;
 }
 
-.container-fluid {
-    padding-top: 180px;
-}
-
 .padding {
     margin: 10px;
+    padding: 10px;
 }
 
 body {
@@ -61,3 +58,7 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.container{
+    width: 400px;
+}
+

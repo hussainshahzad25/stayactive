@@ -30,6 +30,7 @@ import { UserService } from './user.service';
 
 // FOR HASING
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
     PagenotfoundComponent,
     DiscountComponent,
     AlertComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
