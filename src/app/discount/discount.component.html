@@ -123,16 +123,16 @@
                             <form name="form1" (ngSubmit)="update()" #f1="ngForm" novalidate>
                                 <div class="form-group" *ngIf="object">
                                     <label for="policyNumber">Policy Number</label>
-                                    <input type="text" class="form-control" id="policyNumber" name="policyNumber" value="{{object.policyNumber}}" disabled>                                    
+                                    <input type="text" class="form-control" [(ngModel)]="model.policyNumber" id="policyNumber" name="policyNumber" value="{{object.policyNumber}}" disabled>                                    
                                 </div>
                                 <div class="form-group" *ngIf="object">
                                     <label for="memberId">Member Id:</label>
-                                    <input type="text" class="form-control" id="memberId" name="memberId" value="{{object.memberId}}" disabled>
+                                    <input type="text" class="form-control" [(ngModel)]="model.memberId" id="memberId" name="memberId" value="{{object.memberId}}" disabled>
                                 </div>
 
                                 <div class="form-group" *ngIf="editQ" >
                                     <label for="quarterNumber">Quarter Number:</label>
-                                    <input type="text" class="form-control" id="quarterNumber" name="quarterNumber" value="{{editQ.quarterNumber}}" disabled>
+                                    <input type="text" class="form-control" [(ngModel)]="model.quarterNumber" id="quarterNumber" name="quarterNumber" value="{{editQ.quarterNumber}}" disabled>
                                 </div>
 
                                 <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && !adminDiscount.valid }">

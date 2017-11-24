@@ -11,22 +11,6 @@ export class DiscountService {
 
   private searchUrl: string = "http://172.16.27.9:8090/api/searchDiscount";
   constructor(private http: Http) { }
-  // currentUser: User;
-  // searchDiscount(body: Object): Observable<any> {
-  //   var currentUser = localStorage.getItem('currentUser');
-  //   console.log(currentUser);
-  //   // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
-  //   return this
-  //     .http
-  //     .post(this.searchUrl, body, options)
-  //     .map((res: Response) => {
-  //       console.log(JSON.stringify(res));
-  //     });
-  // }
-
   searchDiscount(policyNumber: string, memberId: string): Observable<any> {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var token = currentUser.token;
@@ -42,30 +26,34 @@ export class DiscountService {
       .map((response: Response) => {
         let user = response.json();
         return user;
-        // console.log(JSON.stringify(user));
       });
   }
 
-  // update(policyNumber: string, memberId: string, quarterNumber: string, adminDiscount: string, reason: string) {
-    
-   
-    
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
+  update(policyNumber: string, memberId: string, quarterNumber: string, adminDiscount: string, reason: string) {
+
+    // alert(quarterNumber);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
 
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let user = currentUser.user;
 
-  //   console.log("Input Value :: " + JSON.stringify({ policyNumber: policyNumber, memberId: memberId, quarterNumber: quarterNumber, adminDiscount: adminDiscount, reason: reason }));
-  //   var obj = JSON.parse(JSON.stringify({ policyNumber: policyNumber, memberId: memberId, quarterNumber: quarterNumber, adminDiscount: adminDiscount, reason: reason }));
-  //   return this.http.post('http://172.16.27.9:8090/updateDiscount', obj)
-  //     .map((response: Response) => {
-  //       let user = response.json();
+    let username = user.username;
+    console.log("username:: " + user.username);
 
-  //       console.log("User Value :: " + JSON.stringify(user));
-  //       return user;
-  //       // if (user && user.token) {
-  //       //   localStorage.setItem('currentUser', JSON.stringify(user));
-  //       // }
-  //     });
-  // }
+
+    console.log("Input Value :: " + JSON.stringify({ policyNumber: policyNumber, memberId: memberId, quarterNumber: quarterNumber, adminDiscount: adminDiscount, updatedBy: username, reason: reason }));
+    var obj = JSON.parse(JSON.stringify({ policyNumber: policyNumber, memberId: memberId, quarterNumber: quarterNumber, adminDiscount: adminDiscount, updatedBy: username, reason: reason }));
+    return this.http.post('http://172.16.27.9:8090/updateDiscount', obj)
+      .map((response: Response) => {
+        let user = response.json();
+
+        console.log("User Value :: " + JSON.stringify(user));
+        return user;
+        // if (user && user.token) {
+        //   localStorage.setItem('currentUser', JSON.stringify(user));
+        // }
+      });
+  }
 }
