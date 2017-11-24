@@ -95,7 +95,17 @@ export class DiscountComponent implements OnInit {
     this.discountService.update(this.model.policyNumber, this.model.memberId, this.model.quarterNumber, this.model.adminDiscount, this.model.reason)
       .subscribe(
       data => {
-        console.log(JSON.stringify(data));
+        this.alertService.success("Discount Update Success");
+        this.discountService
+          .searchDiscount(this.model.policyNumber, this.model.memberId)
+          .subscribe((res) => {
+            this.object = res;
+            console.log(res.discountQuarters);
+            this.quarters = res.discountQuarters;
+            console.log(res.adminQuarters);
+            this.adminQuarters = res.adminQuarters;
+          });
+          
       },
       error => {
         this.alertService.error("could not update Discount");
