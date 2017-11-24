@@ -1,10 +1,17 @@
 .search-member{
     font-family: sans-serif;
     color:burlywood;
+}.padding{
+    padding: 15px;
 }
-.logout{
-    padding: 10px;
-    margin: 10px;
+.edit{
+    padding-left: 33px;
+}
+
+.logout[_ngcontent-c1] {
+    padding: 18px;
+    font-weight: bold;
+    font-size: 15px;
 }
 .col-sm-9 {
     padding: (20px,20px);
@@ -12,4 +19,48 @@
 }
 .datas{
     font-size: 12px;
+}
+.table-bordered {
+    border: 1px solid #ddd;
+    font-size: 12px;
+    border-radius: 1em;
+}
+.panel-heading {
+    padding: 3px 0px;
+    border-bottom: 1px solid transparent;
+    font-size: 28px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom: 3px solid #2dc3e8;
+}
+.admindiscount{
+    text-align: center;
+    padding: 3px;
+
+}
+.small, small {
+    font-size: 106%;
+    color: green;
+    font-weight: bold;
+}
+.modal-title{
+    padding: 5px;
+    color: white;
+    background-color: #f26522;
+}
+.btn-primary{
+    padding: 5px;
+    color: white;
+    background-color: #f26522;
+}
+b, strong {
+    padding-left: 43px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 20px;
+}
+.modal-header .close {
+    margin: 15px;
+    color: black;
+    font-weight: bold;
 }

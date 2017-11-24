@@ -4,7 +4,8 @@ import { DiscountService } from './discount.service';
 import { User } from '../user';
 import { Discountlist } from '../discountlist';
 import { Discount } from '../discount';
-
+import { AlertService } from '../alert.service';
+import { AuthenticationService } from '../authentication.service';
 
 import { UserService } from '../user.service';
 @Component({
@@ -14,13 +15,14 @@ import { UserService } from '../user.service';
 })
 export class DiscountComponent {
 
-
+  loading = false;
   model: any = {};
   res: any;
   currentUser: User;
   private object: any;
   private quarters: any;
   private adminQuarters: any;
+  private editQ: any;
   abc = {
     "riskStartDate": "20/10/2016",
     "memberId": "10008098757",
@@ -32,39 +34,55 @@ export class DiscountComponent {
   // users: User[] = [];
   // object: Discount;  
   // public discountObject: Discountlist;
-  constructor(private discountService: DiscountService, private router: Router, private userService: UserService) {
+  constructor(private authenticationService: AuthenticationService,private alertService: AlertService, private discountService: DiscountService, private router: Router, private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
 
   searchDiscount(value) {
-    // this
-    //   .discountService
-    //   .searchDiscount(value)
-    //   .subscribe(response => {
-    //     this.user = response
-    //     //this.router.navigate(['/discount']);
-    //   });
+    this.loading = true;
     this.discountService
       .searchDiscount(this.model.policyNumber, this.model.memberId)
       .subscribe((res) => {
         this.object = res;
-        console.log(res.policyNumber);
-        // console.log("response1: " + this.object);
-        console.log("response2: " + JSON.stringify(this.object));
         console.log(res.discountQuarters);
         this.quarters = res.discountQuarters;
         console.log(res.adminQuarters);
         this.adminQuarters = res.adminQuarters;
-
+      },
+      error => {
+        this.alertService.error("Discount Not Found ? Please check Policy Number and Member Id");
+        this.loading = false;
       });
   }
 
-  displayCondition(adminquarter: String, quarter: string) {
+  displayCondition(adminquarter: string, quarter: string) {
     if (adminquarter === quarter) {
       return true;
     }
   }
+
+
+  clicked(quarter: any) {
+    this.editQ = quarter;
+    console.log(JSON.stringify(quarter));
+  }
+
+
+  update() {
+    this.loading = true;
+    this.authenticationService.update(this.model.policyNumber, this.model.memberId,this.model.quarterNumber,this.model.adminDiscount,this.model.reason)
+      .subscribe(
+      data => {  
+        console.log(JSON.stringify(data));    
+        // this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        this.alertService.error("could not update Discount");
+        this.loading = false;
+      });
+  }
+
   // ngOnInit() {
   //   this.loadAllUsers();
   // }

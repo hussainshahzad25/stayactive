@@ -2,9 +2,10 @@
     <a [routerLink]="['/login']">Logout</a>
 </div>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-    <h1 class="search-member">Search Member Discount</h1>
+    <h1 class="panel-heading bordered-bottom bordered-blue modal-title">Search Discount for Policy Member</h1>
 
     <form name="form" (ngSubmit)="f.form.valid && searchDiscount()" #f="ngForm" novalidate>
+        <div class="padding"></div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !policyNumber.valid }">
             <label for="policyNumber">Policy Number</label>
             <input type="text" class="form-control" name="policyNumber" [(ngModel)]="model.policyNumber" #policyNumber="ngModel" required
@@ -17,18 +18,19 @@
             <div *ngIf="f.submitted && !memberId.valid" class="help-block">memberId is required</div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Search Discount</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-            />
+            <button class="btn btn-primary">Search Discount</button>
+            <!-- [disabled]="loading" -->
+            
+            <!-- <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/> -->
         </div>
     </form>
 </main>
 <main role="main" class="col-sm-9 ml-sm-auto col-md-9 pt-3">
-    <div class="padding"></div>
+    <!-- <div class="padding"></div> -->
     <div class="table-responsive">
-        <div class="padding"></div>
+        <!-- <div class="padding"></div> -->
         <table class="table table-bordered">
-            <thead>
+            <thead class="btn-primary">
                 <tr *ngIf="object" class="datas">
                     <th>Member Id : {{object.memberId}}</th>
                     <th>Policy Number : {{object.policyNumber}}</th>
@@ -44,15 +46,16 @@
         <table class="table table-bordered">
             <thead>
                 <tr *ngIf="object" class="datas">
-                    <th>Quarter No </th>
-                    <th>Avg Steps </th>
-                    <th>Step Dis </th>
-                    <th>Admin Dis </th>
-                    <th>Total Dis </th>
-                    <th>Updated By </th>
-                    <th>Updated On </th>
-                    <th>Reason </th>
-                </tr>                
+                    <th>Q No</th>
+                    <th>Avg Steps</th>
+                    <th>Step Dis</th>
+                    <th>Admin Dis</th>
+                    <th>Total Dis</th>
+                    <th>Updated By</th>
+                    <th>Updated On</th>
+                    <th>Update Reason</th>
+                    <th>Update Discount</th>
+                </tr>
             </thead>
 
             <tbody *ngFor="let quarter of quarters">
@@ -64,12 +67,14 @@
                     <div *ngIf="adminQuarters">
                         <td *ngFor="let adminquarter of adminQuarters">
                             <div *ngIf="displayCondition(adminquarter.quarterNumber, quarter.quarterNumber)">
-                                {{adminquarter.adminDiscount}}
+                                <strong class="center">{{adminquarter.adminDiscount}}</strong>
                             </div>
                         </td>
                     </div>
-                    <td>
-                        {{quarter.totalDiscount}}</td>
+                    <div *ngIf="!adminQuarters">
+                        <td></td>
+                    </div>
+                    <td>{{quarter.totalDiscount}}</td>
                     <td>
                         <div *ngIf="adminQuarters">
                             <td *ngFor="let adminquarter of adminQuarters">
@@ -97,8 +102,60 @@
                             </td>
                         </div>
                     </td>
+                    <td>
+                        <i data-toggle="modal" data-target="#myModal" (click)="clicked(quarter)">
+                            <small class="edit">Update</small>
+                        </i>
+                    </td>
                 </tr>
             </tbody>
+
+            <!-- MODAL CONTENT START-->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="panel-heading bordered-bottom bordered-blue modal-title">Update Discount</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <form name="form1" (ngSubmit)="f1.form1.valid && update()" #f1="ngForm" novalidate> -->
+                            <form name="form1" (ngSubmit)="update()" #f1="ngForm" novalidate>
+                                <div class="form-group" *ngIf="object">
+                                    <label for="policyNumber">Policy Number</label>
+                                    <input type="text" class="form-control" id="policyNumber" name="policyNumber" value="{{object.policyNumber}}" disabled>                                    
+                                </div>
+                                <div class="form-group" *ngIf="object">
+                                    <label for="memberId">Member Id:</label>
+                                    <input type="text" class="form-control" id="memberId" name="memberId" value="{{object.memberId}}" disabled>
+                                </div>
+
+                                <div class="form-group" *ngIf="editQ" >
+                                    <label for="quarterNumber">Quarter Number:</label>
+                                    <input type="text" class="form-control" id="quarterNumber" name="quarterNumber" value="{{editQ.quarterNumber}}" disabled>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && !adminDiscount.valid }">
+                                    <label for="adminDiscount">Admin Discount:</label>
+                                    <input type="text" class="form-control" id="adminDiscount" name="adminDiscount" [(ngModel)]="model.adminDiscount" #adminDiscount="ngModel" required >
+                                    <div *ngIf="f1.submitted && !adminDiscount.valid" class="help-block">Please Enter Admin Discount</div>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && !reason.valid }">
+                                    <label for="reason">Reason For Update </label>
+                                    <input type="text" class="form-control" id="reason" name="reason" [(ngModel)]="model.reason" #reason="ngModel" required >
+                                    <div *ngIf="f1.submitted && !reason.valid" class="help-block">Reason for Update is required</div>
+                                </div>
+
+                                <button type="submit" class="btn btn-default">Submit</button>
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal" title="Close">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL CONTENT END -->
         </table>
     </div>
 </main>
