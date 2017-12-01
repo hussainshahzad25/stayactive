@@ -26,7 +26,7 @@ import { AlertService } from './alert.service';
 import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
 
-
+// import { PopupModule} from 'ng2-opd-popuo';
 
 // FOR HASING
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -65,6 +65,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
+    // PopupModule.forRoot(),
     RouterModule.forRoot(routes, { useHash: true }),
 
   ],

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { MatDialogModule, MdDialogRef, MDCDialog } from '@material/dialog';
+
+
 import { Router } from '@angular/router';
 import { DiscountService } from './discount.service';
 import { User } from '../user';
@@ -16,18 +19,14 @@ import { UserService } from '../user.service';
 export class DiscountComponent implements OnInit {
 
 
+  constructor(private authenticationService: AuthenticationService, private alertService: AlertService, private discountService: DiscountService, private router: Router, private userService: UserService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  @Output() open: EventEmitter<any> = new EventEmitter();
+  @Output() closeModalEvent = new EventEmitter<boolean>();
+
   ngOnInit() {
-    // this.discountService
-    //   .searchDiscount(this.model.policyNumber, this.model.memberId)
-    //   .subscribe((res) => {
-    //     this.object = res;
-    //     this.quarters = res.discountQuarters;
-    //     this.adminQuarters = res.adminQuarters;
-    //   },
-    //   error => {
-    //     this.alertService.error("Discount Not Found ? Please check Policy Number and Member Id");
-    //     this.loading = false;
-    //   });
   }
   loading = false;
   model: any = {
@@ -37,12 +36,12 @@ export class DiscountComponent implements OnInit {
     adminDiscount: "",
     reason: ""
   };
-  res: any;
+  res: {};
   currentUser: User;
-  private object: any;
-  private quarters: any;
-  private adminQuarters: any;
-  private editQ: any;
+  private object: {};
+  private quarters: {};
+  private adminQuarters: {};
+  private editQ: {};
   abc = {
     "riskStartDate": "20/10/2016",
     "memberId": "10008098757",
@@ -51,25 +50,24 @@ export class DiscountComponent implements OnInit {
     "lastCalculationOn": "29/09/2017"
   };
 
-  // users: User[] = [];
-  // object: Discount;  
-  // public discountObject: Discountlist;
-  constructor(private authenticationService: AuthenticationService, private alertService: AlertService, private discountService: DiscountService, private router: Router, private userService: UserService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  }
+  modalVisible = true;
+  dialogRef: MdDialogRef<any>;
+
   searchDiscount(value) {
     this.loading = true;
     this.discountService
       .searchDiscount(this.model.policyNumber, this.model.memberId)
       .subscribe((res) => {
         this.object = res;
-        // console.log(this.object.discountQuarters);
-        console.log(res.discountQuarters);
+        console.log("Total Qtr :: " + res.discountQuarters);
         this.quarters = res.discountQuarters;
-        console.log(res.adminQuarters);
+        console.log("Admin Qtr :: " + res.adminQuarters);
         this.adminQuarters = res.adminQuarters;
       },
       error => {
+        this.object =null;
+        this.quarters =null;
+        this.adminQuarters =null;
         this.alertService.error("Discount Not Found ? Please check Policy Number and Member Id");
         this.loading = false;
       });
@@ -90,22 +88,27 @@ export class DiscountComponent implements OnInit {
 
 
   update() {
+
     this.loading = true;
     console.log("check data", this.model);
     this.discountService.update(this.model.policyNumber, this.model.memberId, this.model.quarterNumber, this.model.adminDiscount, this.model.reason)
       .subscribe(
       data => {
+        // this.modalVisible = false;
+        // MDCDialog.close() 
+        // this.dialogRef.close();
+        // this.dialogRef.afterClosed();
         this.alertService.success("Discount Update Success");
         this.discountService
           .searchDiscount(this.model.policyNumber, this.model.memberId)
           .subscribe((res) => {
             this.object = res;
-            console.log(res.discountQuarters);
+            console.log("Total Qtr :: " + res.discountQuarters);
             this.quarters = res.discountQuarters;
-            console.log(res.adminQuarters);
+            console.log("Admin Qtr :: " + res.adminQuarters);
             this.adminQuarters = res.adminQuarters;
           });
-          
+
       },
       error => {
         this.alertService.error("could not update Discount");
